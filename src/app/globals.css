@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+/* Sone Dauk Lay — exact tokens from the confirmed design (San Dauk Lay.dc.html). */
+@theme inline {
+  --color-mist: #eef4ef; /* --bg */
+  --color-ink: #23372c;
+  --color-surface: #ffffff;
+  --color-hairline: #d5e3d8; /* --hair */
+  --color-green: #58b08b;
+  --color-green-deep: #3f9e6e;
+  --color-sage-soft: #d3e5d7;
+  --color-forest: #2c4433;
+  --color-muted: #5f7568; /* --muted2, body */
+  --color-meta: #7d9285; /* --muted, labels/eyebrows */
+  --color-amber: #c8871f; /* --gold */
+  --color-amber-soft: #fbefd8; /* --gold-soft */
+  --color-clay: #b0453f; /* --flag */
+  --color-clay-soft: #f7e3dc; /* --flag-soft */
+  --color-track-1: #2a3166;
+  --color-track-2: #5b4b8a;
+  --color-track-3: #1f6f78;
+
+  --font-display: var(--font-inter);
+  --font-mm: var(--font-noto-mm);
+  --font-mono: var(--font-plex-mono);
+}
+
+/* Base element styles live in @layer base so Tailwind utilities (text-white,
+   text-ink, …) always win over them. Unlayered rules would beat utilities. */
+@layer base {
+  html {
+    margin: 0;
+    padding: 0;
+    background: #eef4ef;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: radial-gradient(1100px 560px at 82% -12%, #dff0e4 0%, #eef4ef 58%);
+    color: var(--color-ink);
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: -0.011em;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  ::selection {
+    background: #f5e9c8;
+    color: #23372c;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  button {
+    font-family: inherit;
+    color: inherit;
+  }
+  textarea {
+    outline: none;
+    font-family: inherit;
+  }
+  textarea:focus {
+    border-color: #23372c;
+  }
+  button:focus-visible,
+  textarea:focus-visible,
+  a:focus-visible {
+    outline: 2px solid #3f9e6e;
+    outline-offset: 2px;
+  }
+}
+
+/* Display = Inter, tight, heavy (design uses weight 800, -0.021em). */
+.display {
+  font-family: var(--font-inter), sans-serif;
+  letter-spacing: -0.021em;
+  font-weight: 800;
+}
+/* Burmese = Noto Sans Myanmar / Padauk, tall line-height, never italic. */
+.mm {
+  font-family: var(--font-noto-mm), "Padauk", sans-serif;
+  font-style: normal !important;
+  letter-spacing: normal !important;
+  line-height: 1.8;
+}
+/* mono = the system speaking about itself (eyebrows, meta, honesty). */
+.eyebrow {
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-meta);
+}
+
+@keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes blink { 0%,92%,100%{transform:scaleY(1)} 95%{transform:scaleY(.1)} }
+@keyframes ringspin { to{transform:rotate(360deg)} }
+@keyframes screenIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+@keyframes pop { 0%{transform:scale(.6);opacity:0} 60%{transform:scale(1.12)} 100%{transform:scale(1);opacity:1} }
+@keyframes rise { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
+@keyframes scan { 0%{left:-45%} 100%{left:105%} }
+@keyframes slideBeat { from{opacity:0;transform:translateX(16px)} to{opacity:1;transform:none} }
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+@keyframes sweep { from{background-size:0% 100%} to{background-size:100% 100%} }
+
+.anim-screen { animation: screenIn 0.35s ease; }
+.anim-rise { animation: rise 0.4s ease both; }
+.anim-floaty { animation: floaty 4s ease-in-out infinite; }
+.anim-blink { animation: blink 4.5s infinite; }
+.anim-ringspin { animation: ringspin 22s linear infinite; }
+.anim-slide { animation: slideBeat 0.28s ease; }
+
+/* horizontal-scroll nav on mobile without a visible scrollbar */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
