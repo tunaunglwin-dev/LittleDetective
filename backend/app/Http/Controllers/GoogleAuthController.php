@@ -60,7 +60,7 @@ class GoogleAuthController extends Controller
                 ]);
             } else {
                 $user = User::create([
-                    'name' => $googleUser->getName() ?: $googleUser->getNickname() ?: 'San Dauk Lay User',
+                    'name' => $googleUser->getName() ?: $googleUser->getNickname() ?: 'Little Detective User',
                     'email' => $googleUser->getEmail(),
                     'password' => Str::random(40),
                     'role' => $this->roleForEmail($googleUser->getEmail()),

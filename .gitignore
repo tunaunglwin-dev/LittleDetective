@@ -1,0 +1,8 @@
+*.log
+frontend-dev*.log
+backend-dev*.log
+backend-auth-review*.log
+frontend/dist
+frontend/dist-verify*/
+backend/vendor
+frontend/node_modules

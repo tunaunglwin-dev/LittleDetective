@@ -1,19 +1,19 @@
 <template>
-  <main class="flex min-h-screen items-center justify-center px-5 py-12 text-slate-100 sm:px-8">
-    <section class="w-full max-w-lg rounded-2xl border border-slate-800 bg-slate-950/90 p-7 text-center shadow-2xl shadow-black/45 sm:p-9">
+  <main class="flex min-h-screen items-center justify-center px-5 py-12 text-stone-950 sm:px-8">
+    <section class="w-full max-w-lg rounded-2xl border border-stone-200 bg-white/90 p-7 text-center shadow-2xl shadow-stone-900/10 sm:p-9">
       <div class="relative">
-        <div class="mx-auto grid size-12 place-items-center rounded-xl bg-cyan-300 text-sm font-black text-slate-950 shadow-lg shadow-cyan-950/30">
-          SDL
+        <div class="mx-auto grid size-12 place-items-center rounded-lg bg-emerald-500 text-sm font-black text-white shadow-lg shadow-emerald-900/20">
+          LD
         </div>
-        <h1 class="mt-6 text-4xl font-black leading-tight text-white">{{ title }}</h1>
-        <p class="mx-auto mt-4 max-w-md text-base leading-7 text-slate-400">{{ message }}</p>
-        <p v-if="errorCode" class="mx-auto mt-4 max-w-sm rounded-xl border border-slate-700 bg-slate-900/70 px-4 py-3 text-sm text-slate-300">
+        <h1 class="mt-6 text-4xl font-black leading-tight text-stone-950">{{ title }}</h1>
+        <p class="mx-auto mt-4 max-w-md text-base leading-7 text-stone-600">{{ message }}</p>
+        <p v-if="errorCode" class="mx-auto mt-4 max-w-sm rounded-xl border border-stone-300 bg-stone-50 px-4 py-3 text-sm text-stone-700">
           Error: {{ errorCode }}
         </p>
       </div>
       <RouterLink
         v-if="error"
-        class="relative mt-7 inline-flex rounded-xl bg-cyan-300 px-5 py-4 text-base font-black text-slate-950 hover:bg-cyan-200"
+        class="relative mt-7 inline-flex rounded-lg bg-emerald-500 px-5 py-4 text-base font-black text-white hover:bg-emerald-600"
         to="/login"
       >
         Back to Login
@@ -55,7 +55,7 @@ const message = computed(() => {
     return 'Google reached the app, but Laravel could not finish the sign in. Please try again after the local SSL fix.'
   }
 
-  return 'Securing your session and opening your dashboard.'
+  return 'Opening your Little Detective dashboard.'
 })
 
 onMounted(async () => {

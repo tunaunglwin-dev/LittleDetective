@@ -19,13 +19,13 @@ class DatabaseSeeder extends Seeder
         $users = [
             [
                 'name' => 'Prototype Admin',
-                'email' => 'admin@sandauklay.test',
+                'email' => 'admin@littledetective.test',
                 'role' => 'admin',
                 'provider' => null,
             ],
             [
                 'name' => 'Demo Student',
-                'email' => 'student@sandauklay.test',
+                'email' => 'student@littledetective.test',
                 'role' => 'user',
                 'provider' => null,
             ],

@@ -9,6 +9,12 @@ const routes = [
     meta: { guest: true }
   },
   {
+    path: '/about',
+    name: 'About',
+    component: () => import('../views/AboutView.vue'),
+    meta: { guest: true }
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/LoginView.vue'),
@@ -32,16 +38,18 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/safety-check',
-    name: 'SafetyCheck',
+    path: '/truth-check',
+    name: 'TruthCheck',
     component: () => import('../views/SafetyCheckView.vue'),
     meta: { requiresAuth: true }
   },
   {
+    path: '/safety-check',
+    redirect: '/truth-check',
+  },
+  {
     path: '/ai-detective',
-    name: 'AiDetective',
-    component: () => import('../views/AiDetectiveView.vue'),
-    meta: { requiresAuth: true }
+    redirect: '/dashboard',
   },
   {
     path: '/academy',
@@ -50,10 +58,14 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/community-watch',
-    name: 'CommunityWatch',
-    component: () => import('../views/CommunityWatchView.vue'),
+    path: '/academy/maze',
+    name: 'MisinformationMaze',
+    component: () => import('../views/MazeGameView.vue'),
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/community-watch',
+    redirect: '/dashboard',
   },
   {
     path: '/profile',

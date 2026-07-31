@@ -1,6 +1,24 @@
-# San Dauk Lay Prototype
+# Little Detective
 
-San Dauk Lay is a Vue + Laravel prototype for a friendly digital-safety workspace. It includes login/register, a safety-check module, profile pages, and an admin panel for viewing users, changing roles, and deleting demo accounts.
+Little Detective is a Vue + Laravel prototype for misinformation literacy. It helps students and everyday users practice checking viral claims, spotting missing context, and drafting responsible community awareness reports before sharing.
+
+## Project Overview
+
+- `frontend/`: Vue 3 + Vite app with login/register, dashboard, profile, claim-check modules, academy lessons, rumor report preview, and admin UI.
+- `backend/`: Laravel API for authentication, Google OAuth callback handling, current-user lookup, and admin user management.
+- `docker-compose.yml`: Runs the Laravel backend and Vue frontend together for demos.
+- `database/` and `api/`: Project support folders kept for broader prototype assets and database/API planning.
+- `docs/` and `assets/`: Documentation and presentation resources for the project.
+
+## Main User Flow
+
+1. Users register or log in with email, with optional Google sign-in.
+2. The dashboard opens a misinformation-focused workspace.
+3. Claim Check helps users review source, date, location, evidence, emotion, and confirmation signals.
+4. AI Detective is a rule-based demo that highlights wording that may need verification.
+5. Misinformation Academy provides short checklist lessons.
+6. Rumor Watch drafts a local awareness report preview.
+7. Admin users can view accounts, search users, change roles, and delete demo accounts.
 
 ## Run with Docker
 
@@ -15,8 +33,8 @@ Open the app at:
 
 Demo accounts after the backend starts and seeds the SQLite database:
 
-- Admin: `admin@sandauklay.test` / `password`
-- Student: `student@sandauklay.test` / `password`
+- Admin: `admin@littledetective.test` / `password`
+- Student: `student@littledetective.test` / `password`
 
 The backend uses a Docker volume for `storage/app/database.sqlite`, so demo data stays between restarts. To reset all data:
 
@@ -25,7 +43,7 @@ docker compose down -v
 docker compose up --build
 ```
 
-## Local development without Docker
+## Local Development Without Docker
 
 Frontend:
 
