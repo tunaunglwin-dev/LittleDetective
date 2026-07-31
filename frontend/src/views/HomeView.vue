@@ -46,16 +46,16 @@
         <p class="max-w-fit rounded-full border border-white/30 bg-white/16 px-4 py-2 text-xs text-white/84 backdrop-blur-sm sm:text-sm">
           {{ t.kicker }}
         </p>
-        <h1 class="mt-5 max-w-4xl text-4xl leading-tight drop-shadow-lg sm:text-6xl">
+        <h1 class="mt-4 max-w-4xl text-4xl leading-tight drop-shadow-lg sm:mt-5 sm:text-6xl">
           {{ t.brand }}
         </h1>
         <p class="mt-3 text-xl text-[#f1d8a7] drop-shadow sm:text-3xl">
           {{ t.brandMm }}
         </p>
-        <p class="mt-6 max-w-xl text-base leading-7 text-white/90 drop-shadow sm:text-lg sm:leading-8">
+        <p class="mt-4 max-w-xl text-base leading-7 text-white/90 drop-shadow sm:mt-6 sm:text-lg sm:leading-8">
           {{ t.heroBody }}
         </p>
-        <div class="mt-7 flex flex-wrap gap-3">
+        <div class="mt-5 flex flex-wrap gap-3 sm:mt-7">
           <RouterLink class="rounded-full bg-[#f1d8a7] px-5 py-3 text-sm text-[#173f37] hover:bg-[#ffe6b8] sm:text-base" :to="startPath">
             {{ startLabel }}
           </RouterLink>

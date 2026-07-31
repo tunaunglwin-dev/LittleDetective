@@ -1,8 +1,8 @@
 <template>
   <div class="dashboard-page min-h-screen text-zinc-900">
-    <header class="sticky top-0 z-20 border-b border-[#dcece4] bg-[#fffcf1]/90 px-4 py-3 backdrop-blur sm:px-8">
-      <div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-3">
-        <RouterLink class="flex min-w-0 items-center gap-3" to="/" aria-label="Sone Dauk Lay home">
+    <header class="dashboard-topbar sticky top-0 z-20 border-b border-[#dcece4] bg-[#fffcf1]/90 px-4 py-3 backdrop-blur sm:px-8">
+      <div class="dashboard-topbar-inner mx-auto flex w-full max-w-6xl items-center justify-between gap-3">
+        <RouterLink class="dashboard-brand flex min-w-0 items-center gap-3" to="/" aria-label="Sone Dauk Lay home">
           <span class="sdl-logo sdl-logo-sm shrink-0" aria-hidden="true">
             <img :src="siteLogo" alt="" />
           </span>
@@ -12,10 +12,10 @@
           </span>
         </RouterLink>
 
-        <div class="flex min-w-0 flex-1 items-center justify-end gap-2">
+        <div class="dashboard-actions flex min-w-0 flex-1 items-center justify-end gap-2">
           <div class="relative">
             <button
-              class="rounded-full border border-[#cfe4da] bg-white/80 px-3 py-2 text-xs text-[#355e54] hover:bg-white"
+              class="dashboard-action rounded-full border border-[#cfe4da] bg-white/80 px-3 py-2 text-xs text-[#355e54] hover:bg-white"
               type="button"
               :aria-expanded="showGuide"
               @click="showGuide = !showGuide"
@@ -36,7 +36,7 @@
             </div>
           </div>
 
-          <div class="flex rounded-full border border-[#cfe4da] bg-white/80 p-1">
+          <div class="dashboard-language flex rounded-full border border-[#cfe4da] bg-white/80 p-1">
             <button
               v-for="option in languages"
               :key="option.id"
@@ -67,10 +67,10 @@
             </span>
           </RouterLink>
 
-          <RouterLink class="rounded-full border border-[#cfe4da] bg-white/80 px-3 py-2 text-xs text-zinc-700 hover:bg-white" to="/profile">
+          <RouterLink class="dashboard-action rounded-full border border-[#cfe4da] bg-white/80 px-3 py-2 text-xs text-zinc-700 hover:bg-white" to="/profile">
             {{ text.profile }}
           </RouterLink>
-          <button class="rounded-full bg-[#073f35] px-3 py-2 text-xs text-white hover:bg-[#052f29]" @click="handleLogout">
+          <button class="dashboard-action rounded-full bg-[#073f35] px-3 py-2 text-xs text-white hover:bg-[#052f29]" @click="handleLogout">
             {{ text.logout }}
           </button>
         </div>
@@ -135,8 +135,8 @@
 
     </main>
 
-    <div v-if="showOnboarding" class="fixed inset-0 z-50 grid place-items-center bg-[#052f29]/56 p-4 backdrop-blur-sm">
-      <section class="w-full max-w-2xl rounded-[1.75rem] border border-white/70 bg-[#fffcf1] p-5 shadow-2xl shadow-zinc-950/25 sm:p-7" :lang="language === 'mm' ? 'my' : 'en'">
+    <div v-if="showOnboarding" class="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-[#052f29]/56 p-3 backdrop-blur-sm sm:p-4">
+      <section class="dashboard-onboarding w-full max-w-2xl rounded-[1.75rem] border border-white/70 bg-[#fffcf1] p-5 shadow-2xl shadow-zinc-950/25 sm:p-7" :lang="language === 'mm' ? 'my' : 'en'">
         <div class="flex items-start gap-4">
           <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-[#e9f7ef]">
             <img class="size-11 object-contain" :src="siteLogo" alt="" />

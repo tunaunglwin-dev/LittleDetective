@@ -823,6 +823,67 @@ a:active {
     padding: 0.65rem;
   }
 
+  .dashboard-topbar {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .dashboard-topbar-inner {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .dashboard-brand {
+    flex: 1 1 auto;
+    max-width: calc(100% - 4.5rem);
+  }
+
+  .dashboard-actions {
+    display: grid;
+    width: 100%;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .dashboard-action {
+    min-height: 2.55rem;
+    padding: 0.55rem 0.72rem;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25rem;
+  }
+
+  .dashboard-language {
+    justify-self: start;
+  }
+
+  .dashboard-language button {
+    min-width: 2.4rem;
+    padding-right: 0.62rem;
+    padding-left: 0.62rem;
+  }
+
+  .dashboard-onboarding {
+    max-height: calc(100vh - 1.5rem);
+    overflow-y: auto;
+    border-radius: 1.25rem;
+    padding: 1rem;
+  }
+
+  .dashboard-onboarding > div:first-child {
+    gap: 0.75rem;
+  }
+
+  .dashboard-onboarding h2 {
+    font-size: 1.35rem;
+    line-height: 2rem;
+  }
+
+  .dashboard-onboarding article {
+    padding: 0.85rem;
+  }
+
   .maze-game-header {
     position: sticky;
     top: 0.5rem;
@@ -854,8 +915,8 @@ a:active {
   }
 
   .maze-board-canvas {
-    height: min(58vh, 25rem);
-    min-height: 18.5rem;
+    height: min(48vh, 21rem);
+    min-height: 16.5rem;
     object-fit: fill;
   }
 
@@ -884,16 +945,47 @@ a:active {
   }
 
   .maze-mobile-controls {
-    position: sticky;
-    bottom: 0.6rem;
     z-index: 20;
     max-width: 18rem;
     border: 1px solid rgba(207, 228, 218, 0.84);
     border-radius: 999px;
     background: rgba(255, 252, 241, 0.88);
-    padding: 0.55rem 0.75rem;
+    padding: 0.45rem 0.62rem;
     box-shadow: 0 18px 42px rgba(7, 63, 53, 0.14);
     backdrop-filter: blur(14px);
+  }
+
+  .maze-control-picker {
+    position: sticky;
+    bottom: 10.3rem;
+    z-index: 21;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 18rem;
+    box-shadow: 0 14px 30px rgba(7, 63, 53, 0.1);
+  }
+
+  .maze-arrow-controls {
+    touch-action: none;
+  }
+
+  .maze-arrow-button {
+    display: grid;
+    min-height: 3.55rem;
+    place-items: center;
+    border: 1px solid #cfe4da;
+    border-radius: 1.1rem;
+    background: rgba(255, 255, 255, 0.92);
+    color: #0a4a3e;
+    font-size: 1.35rem;
+    box-shadow: 0 12px 24px rgba(7, 63, 53, 0.12);
+    touch-action: none;
+    user-select: none;
+  }
+
+  .maze-arrow-reset {
+    background: #0a5a4b;
+    color: white;
   }
 
   .maze-status-panel {
@@ -907,15 +999,27 @@ a:active {
   }
 
   .home-site-header {
-    top: 0.75rem;
-    right: 0.75rem;
-    left: 0.75rem;
+    top: 0.55rem;
+    right: 0.65rem;
+    left: 0.65rem;
     width: auto;
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 1.25rem;
     background: rgba(7, 63, 53, 0.72);
     box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
     backdrop-filter: blur(14px);
+  }
+
+  .home-hero {
+    min-height: 78vh;
+    justify-content: center;
+    padding-top: 7rem;
+    padding-bottom: 4.5rem;
+  }
+
+  .home-hero h1 {
+    font-size: 2.45rem;
+    line-height: 3rem;
   }
 
   .home-hero-image {
@@ -930,6 +1034,62 @@ a:active {
 
   .auth-photo-panel {
     min-height: 14rem;
+  }
+
+  .academy-page {
+    padding: 0.65rem;
+  }
+
+  .academy-page header {
+    position: sticky;
+    top: 0.5rem;
+    z-index: 20;
+    border: 1px solid rgba(207, 228, 218, 0.82);
+    border-radius: 1.1rem;
+    background: rgba(255, 252, 241, 0.9);
+    padding: 0.5rem;
+    box-shadow: 0 14px 30px rgba(7, 63, 53, 0.1);
+    backdrop-filter: blur(14px);
+  }
+
+  .academy-maze-card {
+    align-items: flex-start;
+    border-radius: 1.15rem;
+  }
+
+  .mission-map {
+    border-radius: 1.25rem;
+    padding: 1rem;
+  }
+
+  .mission-card {
+    border-radius: 1.1rem;
+    padding: 0.9rem;
+  }
+
+  .maze-intro-card {
+    border-radius: 1.15rem;
+  }
+
+  .maze-intro-card > .relative {
+    gap: 0.75rem;
+  }
+
+  .maze-intro-copy {
+    padding: 1rem;
+  }
+
+  .maze-intro-copy h1 {
+    font-size: 1.75rem;
+    line-height: 2.45rem;
+  }
+
+  .maze-intro-copy .grid {
+    gap: 0.45rem;
+  }
+
+  .maze-enemy-guide {
+    padding: 0.8rem;
   }
 
   .module-preview-card {

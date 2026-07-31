@@ -47,7 +47,7 @@
             </button>
           </div>
 
-          <RouterLink class="mb-4 flex items-center gap-3 rounded-2xl border-2 border-[#0a5a4b] bg-[#f5fbf7] p-3 shadow-xl shadow-emerald-950/6 transition hover:-translate-y-0.5 hover:bg-white sm:p-4" to="/academy/maze">
+          <RouterLink class="academy-maze-card mb-4 flex items-center gap-3 rounded-2xl border-2 border-[#0a5a4b] bg-[#f5fbf7] p-3 shadow-xl shadow-emerald-950/6 transition hover:-translate-y-0.5 hover:bg-white sm:p-4" to="/academy/maze">
             <span class="grid size-12 shrink-0 place-items-center rounded-xl border border-[#cfe4da] bg-white sm:size-16 sm:rounded-[1.25rem]">
               <img class="size-9 rounded-full object-cover sm:size-12" :src="academyLogo" alt="" />
             </span>

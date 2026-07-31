@@ -21,7 +21,7 @@
     </header>
 
     <main class="mx-auto mt-4 max-w-7xl">
-      <section v-if="screen === 'intro'" class="relative overflow-hidden rounded-[1.5rem] border border-white/80 bg-[#dfeee7] p-3 shadow-2xl shadow-emerald-950/8 sm:rounded-[2rem] sm:p-4 lg:min-h-[34rem] lg:p-6">
+      <section v-if="screen === 'intro'" class="maze-intro-card relative overflow-hidden rounded-[1.5rem] border border-white/80 bg-[#dfeee7] p-3 shadow-2xl shadow-emerald-950/8 sm:rounded-[2rem] sm:p-4 lg:min-h-[34rem] lg:p-6">
         <div class="absolute inset-0 opacity-70" aria-hidden="true">
           <div class="absolute left-8 top-10 h-80 w-10 rounded-full bg-[#cfe4da]" />
           <div class="absolute left-8 top-10 h-10 w-72 rounded-full bg-[#cfe4da]" />
@@ -29,7 +29,7 @@
           <div class="absolute right-28 top-8 h-96 w-10 rounded-full bg-[#cfe4da]" />
         </div>
         <div class="relative mx-auto grid max-w-6xl gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div class="rounded-[1.25rem] border border-white/80 bg-white/90 p-4 shadow-xl shadow-emerald-950/8 sm:rounded-[1.75rem] sm:p-7">
+          <div class="maze-intro-copy rounded-[1.25rem] border border-white/80 bg-white/90 p-4 shadow-xl shadow-emerald-950/8 sm:rounded-[1.75rem] sm:p-7">
             <p class="text-xs uppercase tracking-[0.18em] text-[#7a5f2f]">{{ copy.kicker }}</p>
             <h1 class="mt-2 text-[1.65rem] leading-tight text-[#052f29] sm:text-5xl">{{ copy.title }}</h1>
             <p class="mt-2 text-sm leading-6 text-zinc-600 sm:mt-3 sm:text-base sm:leading-7">{{ copy.intro }}</p>
@@ -58,7 +58,7 @@
             </div>
           </div>
 
-          <aside class="rounded-[1.25rem] border border-[#dcece4] bg-[#fffdf8]/94 p-3 shadow-xl shadow-emerald-950/8 sm:rounded-[1.75rem] sm:p-4">
+          <aside class="maze-enemy-guide rounded-[1.25rem] border border-[#dcece4] bg-[#fffdf8]/94 p-3 shadow-xl shadow-emerald-950/8 sm:rounded-[1.75rem] sm:p-4">
             <p class="text-sm text-[#7a5f2f]">{{ copy.enemiesTitle }}</p>
             <div class="mt-2 grid gap-2 sm:mt-3 sm:gap-3">
               <article v-for="enemy in enemies" :key="enemy.id" class="rounded-2xl border border-[#eadfce] bg-white p-2 sm:p-3">
@@ -121,9 +121,18 @@
             </button>
           </div>
 
-          <div class="maze-mobile-controls mx-auto mt-4 flex w-full max-w-xs items-center justify-center gap-4 sm:hidden" :aria-label="copy.mobileControls">
+          <div class="maze-control-picker mt-3 grid grid-cols-2 rounded-full border border-[#dcece4] bg-[#f5fbf7] p-1 sm:hidden">
+            <button class="rounded-full px-3 py-2 text-xs" :class="controlMode === 'joystick' ? 'bg-[#0a5a4b] text-white' : 'text-[#0a4a3e]'" type="button" @click="controlMode = 'joystick'">
+              {{ copy.joystick }}
+            </button>
+            <button class="rounded-full px-3 py-2 text-xs" :class="controlMode === 'arrows' ? 'bg-[#0a5a4b] text-white' : 'text-[#0a4a3e]'" type="button" @click="controlMode = 'arrows'">
+              {{ copy.arrows }}
+            </button>
+          </div>
+
+          <div v-if="controlMode === 'joystick'" class="maze-mobile-controls mx-auto mt-3 flex w-full max-w-xs items-center justify-center gap-4 sm:hidden" :aria-label="copy.mobileControls">
             <div
-              class="relative size-32 rounded-full border border-[#cfe4da] bg-[#e9f7ef] shadow-inner shadow-emerald-950/10"
+              class="relative size-36 rounded-full border border-[#cfe4da] bg-[#e9f7ef] shadow-inner shadow-emerald-950/10"
               @pointerdown="startJoystick"
               @pointermove="moveJoystick"
               @pointerup="endJoystick"
@@ -132,13 +141,25 @@
             >
               <div class="absolute left-1/2 top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#b8d9ca]" />
               <div
-                class="absolute left-1/2 top-1/2 grid size-14 place-items-center rounded-full bg-[#0a5a4b] text-xs text-white shadow-lg shadow-emerald-950/20"
+                class="absolute left-1/2 top-1/2 grid size-16 place-items-center rounded-full bg-[#0a5a4b] text-xs text-white shadow-lg shadow-emerald-950/20"
                 :style="{ transform: `translate(calc(-50% + ${joystick.x}px), calc(-50% + ${joystick.y}px))` }"
               >
                 {{ copy.joy }}
               </div>
             </div>
             <button class="size-16 rounded-full border border-[#dcece4] bg-white text-xl text-[#0a4a3e] shadow-md shadow-emerald-950/10" type="button" @click="resetGame">↺</button>
+          </div>
+
+          <div v-else class="maze-arrow-controls mx-auto mt-3 grid w-full max-w-xs grid-cols-3 gap-2 sm:hidden" :aria-label="copy.arrowControls">
+            <span />
+            <button class="maze-arrow-button" type="button" @pointerdown.prevent="press('up')" @pointerup="release('up')" @pointercancel="release('up')" @pointerleave="release('up')">↑</button>
+            <span />
+            <button class="maze-arrow-button" type="button" @pointerdown.prevent="press('left')" @pointerup="release('left')" @pointercancel="release('left')" @pointerleave="release('left')">←</button>
+            <button class="maze-arrow-button maze-arrow-reset" type="button" @click="resetGame">↺</button>
+            <button class="maze-arrow-button" type="button" @pointerdown.prevent="press('right')" @pointerup="release('right')" @pointercancel="release('right')" @pointerleave="release('right')">→</button>
+            <span />
+            <button class="maze-arrow-button" type="button" @pointerdown.prevent="press('down')" @pointerup="release('down')" @pointercancel="release('down')" @pointerleave="release('down')">↓</button>
+            <span />
           </div>
         </div>
 
@@ -176,6 +197,7 @@ const won = ref(false)
 const lost = ref(false)
 const soundEnabled = ref(true)
 const joystick = ref({ active: false, x: 0, y: 0, dx: 0, dy: 0 })
+const controlMode = ref('joystick')
 const shieldUntil = ref(0)
 const slowUntil = ref(0)
 const trapCooldown = ref(0)
@@ -223,6 +245,9 @@ const copyMap = {
     hearts: 'Hearts',
     controls: 'Move with arrow keys/WASD. On mobile, drag the joystick below the board.',
     mobileControls: 'Mobile joystick controls',
+    joystick: 'Joystick',
+    arrows: 'Arrows',
+    arrowControls: 'Mobile arrow controls',
     joy: 'Move',
     canvasLabel: 'Misinformation Maze game board',
     restart: 'Restart',
@@ -265,6 +290,9 @@ const copyMap = {
     hearts: 'အသက်',
     controls: 'Computer တွင် arrow/WASD သုံးပါ။ Mobile တွင် အောက်က joystick ကိုဆွဲရွှေ့ပါ။',
     mobileControls: 'Mobile joystick ထိန်းချုပ်မှု',
+    joystick: 'Joystick',
+    arrows: 'Arrow',
+    arrowControls: 'Mobile arrow ထိန်းချုပ်မှု',
     joy: 'ရွှေ့',
     canvasLabel: 'သတင်းမှားလမ်းကြောင်းဂိမ်းဘုတ်',
     restart: 'ပြန်စမယ်',
@@ -798,7 +826,11 @@ function draw() {
   const canvas = canvasRef.value
   const ctx = canvas?.getContext('2d')
   if (!ctx) return
+  ctx.setTransform(1, 0, 0, 1, 0, 0)
   ctx.clearRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT)
+  const camera = getCamera()
+  ctx.save()
+  ctx.setTransform(camera.scale, 0, 0, camera.scale, camera.x, camera.y)
   drawMap(ctx)
 
   drawSafeZone(ctx)
@@ -818,6 +850,20 @@ function draw() {
   if (gateSpawn.value) drawTruthGate(ctx, gateSpawn.value)
   drawPlayer(ctx)
   if (won.value || lost.value) drawOverlay(ctx)
+  ctx.restore()
+}
+
+function getCamera() {
+  const canvas = canvasRef.value
+  const isCompact = (canvas?.clientWidth || 0) < 640
+  if (!isCompact) return { scale: 1, x: 0, y: 0 }
+
+  const scale = 1.44
+  const viewWidth = BOARD_WIDTH / scale
+  const viewHeight = BOARD_HEIGHT / scale
+  const left = clamp(player.x - viewWidth * 0.5, 0, BOARD_WIDTH - viewWidth)
+  const top = clamp(player.y - viewHeight * 0.52, 0, BOARD_HEIGHT - viewHeight)
+  return { scale, x: -left * scale, y: -top * scale }
 }
 
 function drawMap(ctx) {
@@ -1349,17 +1395,21 @@ function updateJoystick(event) {
   const centerY = rect.top + rect.height / 2
   const rawX = event.clientX - centerX
   const rawY = event.clientY - centerY
-  const max = rect.width * 0.28
+  const max = rect.width * 0.34
   const length = Math.hypot(rawX, rawY)
   const scale = length > max ? max / length : 1
   const x = rawX * scale
   const y = rawY * scale
+  const deadZone = max * 0.14
+  const strength = length < deadZone ? 0 : Math.min(1, (length - deadZone) / (max - deadZone))
+  const unitX = length ? rawX / length : 0
+  const unitY = length ? rawY / length : 0
   joystick.value = {
     active: true,
     x,
     y,
-    dx: Math.abs(x) < 4 ? 0 : x / max,
-    dy: Math.abs(y) < 4 ? 0 : y / max,
+    dx: unitX * strength,
+    dy: unitY * strength,
   }
 }
 
@@ -1411,6 +1461,10 @@ function press(direction) {
 
 function release(direction) {
   keys.delete(direction)
+}
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value))
 }
 
 function onKeyDown(event) {
