@@ -20,7 +20,8 @@
               :aria-expanded="showGuide"
               @click="showGuide = !showGuide"
             >
-              {{ text.guide }}
+              <span class="dashboard-label-full">{{ text.guide }}</span>
+              <span class="dashboard-label-short">Guide</span>
             </button>
             <div
               v-if="showGuide"
@@ -68,10 +69,12 @@
           </RouterLink>
 
           <RouterLink class="dashboard-action rounded-full border border-[#cfe4da] bg-white/80 px-3 py-2 text-xs text-zinc-700 hover:bg-white" to="/profile">
-            {{ text.profile }}
+            <span class="dashboard-label-full">{{ text.profile }}</span>
+            <span class="dashboard-label-short">{{ rank.current.badge }}</span>
           </RouterLink>
           <button class="dashboard-action rounded-full bg-[#073f35] px-3 py-2 text-xs text-white hover:bg-[#052f29]" @click="handleLogout">
-            {{ text.logout }}
+            <span class="dashboard-label-full">{{ text.logout }}</span>
+            <span class="dashboard-label-short">Out</span>
           </button>
         </div>
       </div>

@@ -215,6 +215,7 @@ let started = 0
 let audio = null
 let ambience = null
 let footstepTimer = 0
+let playerVelocity = { x: 0, y: 0 }
 const START_POINT = { x: 76, y: 806 }
 const SAFE_ZONE = { x: START_POINT.x, y: START_POINT.y, radius: 94 }
 const PLAYER_COLLISION_RADIUS = 18
@@ -419,6 +420,7 @@ function startGame() {
 
 function resetGame() {
   player = { x: START_POINT.x, y: START_POINT.y, size: 52, face: 'right', moving: false, step: 0 }
+  playerVelocity = { x: 0, y: 0 }
   collected.value = []
   collectedPowerUps.value = []
   hearts.value = 4
@@ -480,7 +482,7 @@ function update(delta, now) {
 }
 
 function updatePlayer(delta, now) {
-  const speed = performance.now() < trapCooldown.value ? 150 : 250
+  const speed = performance.now() < trapCooldown.value ? 145 : 265
   let dx = 0
   let dy = 0
   if (keys.has('left')) dx -= 1
@@ -489,16 +491,24 @@ function updatePlayer(delta, now) {
   if (keys.has('down')) dy += 1
   dx += joystick.value.dx
   dy += joystick.value.dy
-  player.moving = !!(dx || dy)
-  if (!dx && !dy) return
+  const inputActive = !!(dx || dy)
   if (Math.abs(dx) > Math.abs(dy)) player.face = dx > 0 ? 'right' : 'left'
-  player.step += delta * 10
   if (dx && dy) {
     dx *= 0.707
     dy *= 0.707
   }
-  move(dx * speed * delta, 0)
-  move(0, dy * speed * delta)
+  const response = inputActive ? 16 : 10
+  const blend = 1 - Math.exp(-response * delta)
+  playerVelocity.x += (dx * speed - playerVelocity.x) * blend
+  playerVelocity.y += (dy * speed - playerVelocity.y) * blend
+  player.moving = Math.hypot(playerVelocity.x, playerVelocity.y) > 8
+  if (!player.moving) {
+    playerVelocity = { x: 0, y: 0 }
+    return
+  }
+  player.step += delta * (8 + Math.min(8, Math.hypot(playerVelocity.x, playerVelocity.y) / 34))
+  move(playerVelocity.x * delta, 0)
+  move(0, playerVelocity.y * delta)
   if (player.moving && now > footstepTimer && !won.value && !lost.value) {
     footstepSound()
     footstepTimer = now + 230
@@ -511,7 +521,11 @@ function move(dx, dy) {
     x: Math.max(player.size / 2, Math.min(BOARD_WIDTH - player.size / 2, player.x + dx)),
     y: Math.max(player.size / 2, Math.min(BOARD_HEIGHT - player.size / 2, player.y + dy)),
   }
-  if (activeWalls.value.some((wall) => circleRect(next, wall, PLAYER_COLLISION_RADIUS))) return
+  if (activeWalls.value.some((wall) => circleRect(next, wall, PLAYER_COLLISION_RADIUS))) {
+    if (dx) playerVelocity.x = 0
+    if (dy) playerVelocity.y = 0
+    return
+  }
   player = next
 }
 
@@ -728,6 +742,7 @@ function handleDamage() {
 
 function respawnAtHitSpot() {
   player = { ...player, moving: false }
+  playerVelocity = { x: 0, y: 0 }
   invincibleUntil.value = performance.now() + 3000
   keys.clear()
   joystick.value = { active: false, x: 0, y: 0, dx: 0, dy: 0 }
@@ -735,6 +750,7 @@ function respawnAtHitSpot() {
 
 function sendPlayerToStart() {
   player = { ...player, x: START_POINT.x, y: START_POINT.y, moving: false, face: 'right' }
+  playerVelocity = { x: 0, y: 0 }
   trapCooldown.value = performance.now() + 1200
   invincibleUntil.value = performance.now() + 1800
   keys.clear()
@@ -743,6 +759,7 @@ function sendPlayerToStart() {
 
 function gameOver() {
   lost.value = true
+  playerVelocity = { x: 0, y: 0 }
   keys.clear()
   joystick.value = { active: false, x: 0, y: 0, dx: 0, dy: 0 }
   gameOverSound()
